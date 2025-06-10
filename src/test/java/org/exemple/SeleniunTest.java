@@ -13,7 +13,7 @@ public class SeleniunTest {
 
     @BeforeEach
     void setUp(){
-        WebDriverManager.chromedriver().setup();
+       // WebDriverManager.chromedriver().setup();
         driver = new ChromeDriver();  // <-- Inicializando o driver
         home = new Home(driver);
     }
@@ -26,5 +26,10 @@ public class SeleniunTest {
         }
     }
 
-
+    @Test
+    @DisplayName("Deve abrir ")
+    void abreNavegador() throws InterruptedException {
+        home.AbreNavegador();
+        Thread.sleep(1500);
+    }
 }
