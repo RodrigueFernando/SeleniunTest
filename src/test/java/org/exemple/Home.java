@@ -46,7 +46,12 @@ public class Home {
             wait(1000);
         }
 
-
-
     }
+
+    public void clicarBotaoCadastrar() throws InterruptedException {
+
+        WebElement botaoCadastrar = driver.findElement(By.cssSelector("button.botao-principal"));
+        botaoCadastrar.click();
+    }
+
 }
