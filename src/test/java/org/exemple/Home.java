@@ -43,7 +43,7 @@ public class Home {
             campoTitulos.clear();
             campoTitulos.sendKeys(titulos);
 
-            wait(1000);
+            wait(2000);
         }
 
     }
@@ -52,6 +52,12 @@ public class Home {
 
         WebElement botaoCadastrar = driver.findElement(By.cssSelector("button.botao-principal"));
         botaoCadastrar.click();
+    }
+    public void clicarVerPilotosCadastrados() throws InterruptedException {
+        synchronized(this) {
+            driver.findElement(By.cssSelector("button.botao-secundario")).click();
+            wait(1000);
+        }
     }
 
 }

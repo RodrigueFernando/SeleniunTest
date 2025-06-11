@@ -16,6 +16,8 @@ public class SeleniunTest {
        // WebDriverManager.chromedriver().setup();
         driver = new ChromeDriver();  // <-- Inicializando o driver
         home = new Home(driver);
+        driver.manage().window().maximize();
+        driver.get("https://f1-cadastro-tc1.vercel.app/");
     }
 
     @AfterEach
@@ -31,5 +33,12 @@ public class SeleniunTest {
     void abreNavegador() throws InterruptedException {
         home.AbreNavegador();
         Thread.sleep(1500);
+    }
+    @Test
+    @DisplayName("Cadastrar piloto F1 e ver piloto cadastrato")
+    void cadastrarPiloto() throws InterruptedException {
+        home.cadastrarPessoas();
+        home.clicarBotaoCadastrar();
+        home.clicarVerPilotosCadastrados();
     }
 }
