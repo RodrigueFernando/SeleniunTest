@@ -87,4 +87,16 @@ public class SeleniunTest {
         home.clickNoBotaoDeletar();
     }
 
+    @Test
+    @DisplayName("Cadastrar múltiplos pilotos e visualizar cadastro")
+    void cadastrarMultiplosPilotos() throws InterruptedException {
+        for (int i = 1; i <= 5; i++) {
+            home.clicarBotaoCadastrar();
+            home.cadastrarPessoas();
+        }
+
+        home.clicarVerPilotosCadastrados();
+    }
+
+
 }
