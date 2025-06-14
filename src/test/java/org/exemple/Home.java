@@ -65,7 +65,7 @@ public class Home {
     }
 
     public void clicarBotaoVoltar() throws InterruptedException {
-        driver.findElement(By.cssSelector("button")).click();
+        driver.findElement(By.xpath("//button[text()='Voltar']"));
 
     }
 
