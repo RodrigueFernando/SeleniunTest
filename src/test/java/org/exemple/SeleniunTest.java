@@ -1,15 +1,19 @@
 import io.github.bonigarcia.wdm.WebDriverManager;
 import org.exemple.Home;
-import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.*;
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
+
+import java.time.Duration;
 
 public class SeleniunTest {
     private WebDriver driver;
     private Home home;
+    WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(20));
 
     @BeforeEach
     void setUp(){
@@ -27,7 +31,7 @@ public class SeleniunTest {
             driver.quit();
         }
     }
-
+    //este de aceitação
     @Test
     @DisplayName("Deve abrir ")
     void abreNavegador() throws InterruptedException {
@@ -41,4 +45,28 @@ public class SeleniunTest {
         home.clicarBotaoCadastrar();
         home.clicarVerPilotosCadastrados();
     }
+
+    @Test
+    @DisplayName("Exibir erros de campos obrigatórios ao cadastrar piloto com formulário vazio")
+    void deveExibirErrosQuandoFormularioEstiverVazio() throws InterruptedException {
+        home.clicarBotaoCadastrar();
+
+        WebElement mensagemNome = new WebDriverWait(driver, Duration.ofSeconds(5))
+                .until(ExpectedConditions.presenceOfElementLocated(
+                        By.xpath("//*[contains(text(),'Nome obrigatório')]"))
+                );
+
+        WebElement mensagemIdade = driver.findElement(
+                By.xpath("//*[contains(text(),'Escolha sua equipe')]")
+        );
+
+        WebElement mensagemNacionalidade = driver.findElement(
+                By.xpath("//*[contains(text(),'Nacionalidade obrigatória')]")
+        );
+
+        Assertions.assertEquals("Nome obrigatório", mensagemNome.getText());
+        Assertions.assertEquals("Escolha sua equipe", mensagemIdade.getText());
+        Assertions.assertEquals("Nacionalidade obrigatória", mensagemNacionalidade.getText());
+    }
+
 }

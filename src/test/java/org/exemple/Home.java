@@ -4,7 +4,11 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import com.github.javafaker.Faker;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
+import org.openqa.selenium.support.ui.WebDriverWait;
+
+import java.time.Duration;
 
 public class Home {
 
@@ -49,9 +53,9 @@ public class Home {
     }
 
     public void clicarBotaoCadastrar() throws InterruptedException {
-
         WebElement botaoCadastrar = driver.findElement(By.cssSelector("button.botao-principal"));
         botaoCadastrar.click();
+
     }
     public void clicarVerPilotosCadastrados() throws InterruptedException {
         synchronized(this) {
@@ -59,5 +63,9 @@ public class Home {
             wait(1000);
         }
     }
+
+
+
+
 
 }
