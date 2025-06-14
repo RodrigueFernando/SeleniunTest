@@ -78,4 +78,13 @@ public class SeleniunTest {
         home.clicarBotaoVoltar();
     }
 
+    @Test
+    @DisplayName("Deleta piloto cadastrado")
+    void deveDeletarPilotoCadastrado() throws InterruptedException {
+        home.cadastrarPessoas();
+        home.clicarBotaoCadastrar();
+        home.clicarVerPilotosCadastrados();
+        home.clickNoBotaoDeletar();
+    }
+
 }
