@@ -69,4 +69,13 @@ public class SeleniunTest {
         Assertions.assertEquals("Nacionalidade obrigatória", mensagemNacionalidade.getText());
     }
 
+    @Test
+    @DisplayName("Clicar em Ver cadastro e depois no botão Voltar")
+    void deveNavegarParaListaDePilotosEVoltar() throws InterruptedException {
+      //  home.cadastrarPessoas();
+        home.clicarBotaoCadastrar();
+        home.clicarVerPilotosCadastrados();
+        home.clicarBotaoVoltar();
+    }
+
 }

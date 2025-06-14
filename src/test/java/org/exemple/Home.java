@@ -64,6 +64,11 @@ public class Home {
         }
     }
 
+    public void clicarBotaoVoltar() throws InterruptedException {
+        driver.findElement(By.cssSelector("button")).click();
+
+    }
+
 
 
 
