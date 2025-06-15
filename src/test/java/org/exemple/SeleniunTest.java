@@ -228,6 +228,31 @@ public class SeleniunTest {
 
     }
 
+    @Test
+    @DisplayName("Deve cadastrar piloto e verificar persistência após recarregar a página")
+    void devePersistirDadosAposRecarregarPagina() throws InterruptedException {
+        cadastrarPiloto();
+        driver.navigate().refresh();
+
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+        wait.until(ExpectedConditions.elementToBeClickable(
+                By.xpath("//button[contains(text(),'Ver Pilotos Cadastrados')]")
+        ));
+
+        home.clicarVerPilotosCadastrados();
+
+        wait.until(ExpectedConditions.presenceOfElementLocated(
+                By.xpath("//div[p[b[contains(text(),'Nome:')]]]")
+        ));
+
+        List<WebElement> divsPilotos = driver.findElements(
+                By.xpath("//div[p[b[contains(text(),'Nome:')]]]")
+        );
+
+        Assertions.assertFalse(divsPilotos.isEmpty(), "A lista de pilotos não deve estar vazia");
+    }
+
+
 
 
 
