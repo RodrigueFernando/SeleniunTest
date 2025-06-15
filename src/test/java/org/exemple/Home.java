@@ -71,8 +71,21 @@ public class Home {
     public void clickNoBotaoDeletar() throws InterruptedException {
         driver.findElement(By.xpath("//button[text()='Deletar']")).click();
     }
+    public void preencherFormulario(String nome, String nacionalidade, String equipe, String titulos) throws InterruptedException {
+
+        WebElement campoNome = driver.findElement(By.name("nome"));
+        WebElement campoNacionalidade = driver.findElement(By.name("nacionalidade"));
+        WebElement selectEquipe = driver.findElement(By.name("equipe"));
+        WebElement campoTitulos = driver.findElement(By.name("titulos"));
 
 
+        campoNome.sendKeys(nome);
+        campoNacionalidade.sendKeys(nacionalidade);
+        new Select(selectEquipe).selectByVisibleText(equipe);
+        campoTitulos.sendKeys(titulos);
+
+
+    }
 
 
 
