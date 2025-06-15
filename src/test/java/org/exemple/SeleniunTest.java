@@ -191,6 +191,45 @@ public class SeleniunTest {
 
     }
 
+    @Test
+    @DisplayName("Não deve cadastrar dois pilotos com dados exatamente iguais")
+    void naoDeveCadastrarDoisPilotosIguais() throws InterruptedException {
+
+        String nome = "Ayrton Senna";
+        String nacionalidade = "Brasil";
+        String equipe = "McLaren";
+        String titulos = "3";
+
+        home.preencherFormulario(nome, nacionalidade, equipe, titulos);
+        home.clicarBotaoCadastrar();
+
+        home.preencherFormulario(nome, nacionalidade, equipe, titulos);
+        home.clicarBotaoCadastrar();
+        home.clicarVerPilotosCadastrados();
+
+
+
+        List<WebElement> divsPilotos = driver.findElements(
+                By.xpath("//div[p[b[contains(text(),'Nome:')]]]")
+        );
+
+        // Flag pra saber se achou o cadastro correto
+        long quantidade = divsPilotos.stream().filter(div -> {
+            String texto = div.getText();
+            return texto.contains("Nome: Ayrton Senna")
+                    && texto.contains("Nacionalidade: Brasil")
+                    && texto.contains("Equipe: McLaren")
+                    && texto.contains("Títulos: 3");
+        }).count();
+
+        Assertions.assertNotEquals(2, quantidade, "Não deveria existir dois pilotos com os mesmos dados.");
+
+
+        // divsPilotos.forEach(div -> System.out.println("\nPiloto cadastrado:\n" + div.getText()));
+
+    }
+
+
 
 
 
