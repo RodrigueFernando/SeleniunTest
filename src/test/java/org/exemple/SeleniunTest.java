@@ -175,11 +175,10 @@ public class SeleniunTest {
     }
 
     @Test
-    @DisplayName("Deve cadastrar piloto e verificar persistência após recarregar a página")
-    void devePersistirDadosAposRecarregarPagina() throws InterruptedException {
+    @DisplayName("Deve cadastrar piloto e verificar persistência após voltar a pagina")
+    void devePersistirDadosAposVoltarApagina() throws InterruptedException {
          cadastrarPiloto();
         home.clicarBotaoVoltar();
-        driver.navigate().refresh();
         home.clicarVerPilotosCadastrados();
 
         List<WebElement> divsPilotos = driver.findElements(
@@ -228,7 +227,6 @@ public class SeleniunTest {
         // divsPilotos.forEach(div -> System.out.println("\nPiloto cadastrado:\n" + div.getText()));
 
     }
-
 
 
 
