@@ -32,11 +32,10 @@ public class Home {
         WebElement campoTitulos = driver.findElement(By.name("titulos"));
 
         // Gerando dados aleatórios
-        String nome = faker.name().fullName();
-        String nacionalidade = faker.country().name();
-        String[] equipes = {"Ferrari", "Red Bull", "Mercedes", "McLaren"};
-        String equipeAleatoria = equipes[faker.random().nextInt(equipes.length)];
-        String titulos = String.valueOf(faker.number().numberBetween(0, 8));
+        String nome = GeradorDeDados.gerarNome();
+        String nacionalidade = GeradorDeDados.gerarNacionalidade();
+        String equipeAleatoria = GeradorDeDados.gerarEquipe();
+        String titulos = GeradorDeDados.gerarTitulos();
 
         // Preenchendo os campos com Faker
 
