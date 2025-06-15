@@ -1,4 +1,5 @@
 import io.github.bonigarcia.wdm.WebDriverManager;
+import org.exemple.GeradorDeDados;
 import org.exemple.Home;
 import org.junit.jupiter.api.*;
 import org.openqa.selenium.By;
@@ -139,6 +140,40 @@ public class SeleniunTest {
 
       //  divsPilotos.forEach(div -> System.out.println("\nPiloto cadastrado:\n" + div.getText()));
     }
+
+    @Test
+    @DisplayName("Deve cadastrar, visualizar, deletar e verificar remoção de piloto")
+    void deveCadastrarVisualizarDeletarEPilotoNaoEstarMaisNaLista() throws InterruptedException {
+        // Gerar dados conhecidos
+        String nome = GeradorDeDados.gerarNome();
+        String nacionalidade = GeradorDeDados.gerarNacionalidade();
+        String equipe = GeradorDeDados.gerarEquipe();
+        String titulos = GeradorDeDados.gerarTitulos();
+
+        // Cadastrar o piloto
+        home.cadastrarPessoas();
+        home.clicarBotaoCadastrar();
+
+        // Ir para a tela de listagem
+        home.clicarVerPilotosCadastrados();
+
+        List<WebElement> divsPilotos = driver.findElements(
+                By.xpath("//div[p[b[contains(text(),'Nome:')]]]")
+        );
+
+
+        Assertions.assertFalse(divsPilotos.isEmpty(), "A lista de pilotos não deve estar vazia");
+
+        home.clickNoBotaoDeletar();
+
+
+        // Verificar que o piloto não está mais na lista
+        List<WebElement> pilotoRemovido = driver.findElements(By.xpath("//div[p[b[contains(text(),'Nome:')]]]"));
+        Assertions.assertTrue(pilotoRemovido.isEmpty(), "Piloto deve ter sido removido da lista");
+
+
+    }
+
 
 
 
