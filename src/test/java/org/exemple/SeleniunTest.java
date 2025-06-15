@@ -6,9 +6,11 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.time.Duration;
+import java.util.List;
 
 public class SeleniunTest {
     private WebDriver driver;
@@ -97,6 +99,47 @@ public class SeleniunTest {
 
         home.clicarVerPilotosCadastrados();
     }
+    @Test
+    @DisplayName("Deve cadastrar piloto e verificar dados na listagem")
+    void deveCadastrarEPossuirDadosCorretosNaListagem() throws InterruptedException {
+
+        home.cadastrarPessoas();
+
+        String nomeDigitado = driver.findElement(By.name("nome")).getAttribute("value");
+        String nacionalidadeDigitada = driver.findElement(By.name("nacionalidade")).getAttribute("value");
+        String titulosDigitado = driver.findElement(By.name("titulos")).getAttribute("value");
+        Select selectEquipe = new Select(driver.findElement(By.name("equipe")));
+        String equipeSelecionada = selectEquipe.getFirstSelectedOption().getText();
+
+
+        home.clicarBotaoCadastrar();
+        home.clicarVerPilotosCadastrados();
+
+
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+        wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//div[p[b[contains(text(),'Nome:')]]]")));
+
+        // Captura todas as divs dos pilotos cadastrados
+        List<WebElement> divsPilotos = driver.findElements(
+                By.xpath("//div[p[b[contains(text(),'Nome:')]]]")
+        );
+
+        // Flag pra saber se achou o cadastro correto
+        boolean cadastroCorretoEncontrado = divsPilotos.stream().anyMatch(div -> {
+            String texto = div.getText();
+            // Verifica se a div contém todos os dados esperados
+            return texto.contains("Nome: " + nomeDigitado)
+                    && texto.contains("Nacionalidade: " + nacionalidadeDigitada)
+                    && texto.contains("Equipe: " + equipeSelecionada)
+                    && texto.contains("Títulos: " + titulosDigitado);
+        });
+
+        Assertions.assertTrue(cadastroCorretoEncontrado, "O piloto cadastrado não foi encontrado corretamente na listagem.");
+
+
+      //  divsPilotos.forEach(div -> System.out.println("\nPiloto cadastrado:\n" + div.getText()));
+    }
+
 
 
 }
