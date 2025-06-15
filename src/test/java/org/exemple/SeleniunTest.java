@@ -23,7 +23,7 @@ public class SeleniunTest {
        // WebDriverManager.chromedriver().setup();
         driver = new ChromeDriver();  // <-- Inicializando o driver
         home = new Home(driver);
-        driver.manage().window().maximize();
+      //  driver.manage().window().maximize();
         driver.get("https://f1-cadastro-tc1.vercel.app/");
     }
 
@@ -170,6 +170,23 @@ public class SeleniunTest {
         // Verificar que o piloto não está mais na lista
         List<WebElement> pilotoRemovido = driver.findElements(By.xpath("//div[p[b[contains(text(),'Nome:')]]]"));
         Assertions.assertTrue(pilotoRemovido.isEmpty(), "Piloto deve ter sido removido da lista");
+
+
+    }
+
+    @Test
+    @DisplayName("Deve cadastrar piloto e verificar persistência após recarregar a página")
+    void devePersistirDadosAposRecarregarPagina() throws InterruptedException {
+         cadastrarPiloto();
+        home.clicarBotaoVoltar();
+        driver.navigate().refresh();
+        home.clicarVerPilotosCadastrados();
+
+        List<WebElement> divsPilotos = driver.findElements(
+                By.xpath("//div[p[b[contains(text(),'Nome:')]]]")
+        );
+
+        Assertions.assertFalse(divsPilotos.isEmpty(), "A lista de pilotos não deve estar vazia");
 
 
     }
